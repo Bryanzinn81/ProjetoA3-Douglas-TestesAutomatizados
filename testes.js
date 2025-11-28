@@ -1,27 +1,23 @@
-// ===================================
-// ARQUIVO: testes.js
-// Testes Automatizados com Jasmine
-// ===================================
 
 describe("Sistema de Cálculo de Imposto e Desconto", function() {
 
-    // SUITE 1: CENÁRIOS DE SUCESSO (Caminho Feliz)
-    // Onde tudo funciona como esperado
+    //CENÁRIOS DE SUCESSO!!!!!!!!!!!!
+    
     describe("1. Cenários de Sucesso", function() {
         
-        // Teste 1: Valor alto (com desconto e imposto)
+        // Teste 1: Valor alto
         it("deve aplicar 10% desc + 5% imposto para valor R$ 1000", function() {
             // 1000 - 10% = 900. 900 + 5% = 945.00
             expect(calcularValorFinal(1000)).toBe(945.00);
         });
 
-        // Teste 2: Valor baixo (sem desconto, só imposto)
+        // Teste 2: Valor baixo
         it("deve aplicar apenas 5% imposto para valor R$ 100", function() {
             // 100 + 5% = 105.00
             expect(calcularValorFinal(100)).toBe(105.00);
         });
 
-        // Teste 3: Valor Decimal (teste de arredondamento)
+        // Teste 3: Valor Decimal
         it("deve calcular corretamente valor quebrado (R$ 600.50)", function() {
             // 600.50 - 10% = 540.45. 540.45 + 5% = 567.4725 -> Arredonda 567.47
             expect(calcularValorFinal(600.50)).toBe(567.47);
@@ -33,8 +29,8 @@ describe("Sistema de Cálculo de Imposto e Desconto", function() {
         });
     });
 
-    // SUITE 2: CENÁRIOS DE BORDA (Limites)
-    // Onde testamos os limites exatos da regra (> 500)
+    //CENÁRIOS DE BORDA!!!!!!!!!!!
+
     describe("2. Cenários de Borda (Limite de R$ 500)", function() {
 
         // Teste 5: Exatamente o limite
@@ -61,8 +57,8 @@ describe("Sistema de Cálculo de Imposto e Desconto", function() {
         });
     });
 
-    // SUITE 3: CENÁRIOS DE FALHA (Exceção)
-    // Onde o usuário faz algo errado
+    //CENÁRIOS DE FALHA
+
     describe("3. Cenários de Falha", function() {
 
         // Teste 9: Valor Negativo

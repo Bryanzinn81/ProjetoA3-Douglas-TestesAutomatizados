@@ -41,32 +41,23 @@
 </div>
 
 <script>
-    /**
-     * Função que conecta a Tela (HTML) com a Lógica (regras.js)
-     */
+
     function realizarCalculo() {
-        // 1. Pega o valor digitado pelo usuário
         const inputValor = document.getElementById('valor').value;
         
-        // Converte texto para número (float)
-        // Se estiver vazio, consideramos 0 para evitar erros
         const valorNumerico = inputValor === "" ? 0 : parseFloat(inputValor);
 
-        // 2. Chama a função inteligente do arquivo regras.js
         const resultado = calcularValorFinal(valorNumerico);
         const mensagemStatus = verificarStatus(resultado);
 
-        // 3. Atualiza a tela com a resposta
         const spanValor = document.getElementById('valorFinal');
         const spanStatus = document.getElementById('status');
 
-        // Lógica visual: Se der erro (-1), mostramos aviso
         if (resultado === -1) {
             spanValor.textContent = "---";
             spanValor.style.color = "red";
             spanStatus.style.color = "red";
         } else {
-            // Formata para moeda Real brasileiro (R$)
             spanValor.textContent = resultado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             spanValor.style.color = "green";
             spanStatus.style.color = "blue";

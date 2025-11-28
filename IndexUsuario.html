@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Imposto e Desconto</title>
+    
+    <script src="regras.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); max-width: 400px; margin: auto; }
+        h1 { color: #333; text-align: center; margin-bottom: 20px; font-size: 1.5em; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input[type="number"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #28a745; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; transition: background 0.3s; }
+        button:hover { background-color: #218838; }
+        #resultado-area { margin-top: 25px; padding: 15px; border-radius: 4px; border: 1px solid #ddd; text-align: center; background-color: #f8f9fa; }
+        #valorFinal { font-size: 1.4em; font-weight: bold; color: #333; }
+        .legenda { font-size: 0.9em; color: #666; margin-top: 5px;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cálculo de Venda</h1>
+
+    <label for="valor">Valor do Produto (R$):</label>
+    <input type="number" id="valor" placeholder="Ex: 500.00" step="0.01">
+
+    <button onclick="realizarCalculo()">Calcular Final</button>
+
+    <div id="resultado-area">
+        <div style="margin-bottom: 10px;">Valor Final a Pagar:</div>
+        <div id="valorFinal">R$ 0.00</div>
+        
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
+        
+        <strong>Status:</strong> <span id="status">Aguardando...</span>
+        <div class="legenda">*Desconto de 10% para compras acima de R$ 500.00</div>
+    </div>
+</div>
+
+<script>
+    /**
+     * Função que conecta a Tela (HTML) com a Lógica (regras.js)
+     */
+    function realizarCalculo() {
+        // 1. Pega o valor digitado pelo usuário
+        const inputValor = document.getElementById('valor').value;
+        
+        // Converte texto para número (float)
+        // Se estiver vazio, consideramos 0 para evitar erros
+        const valorNumerico = inputValor === "" ? 0 : parseFloat(inputValor);
+
+        // 2. Chama a função inteligente do arquivo regras.js
+        const resultado = calcularValorFinal(valorNumerico);
+        const mensagemStatus = verificarStatus(resultado);
+
+        // 3. Atualiza a tela com a resposta
+        const spanValor = document.getElementById('valorFinal');
+        const spanStatus = document.getElementById('status');
+
+        // Lógica visual: Se der erro (-1), mostramos aviso
+        if (resultado === -1) {
+            spanValor.textContent = "---";
+            spanValor.style.color = "red";
+            spanStatus.style.color = "red";
+        } else {
+            // Formata para moeda Real brasileiro (R$)
+            spanValor.textContent = resultado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            spanValor.style.color = "green";
+            spanStatus.style.color = "blue";
+        }
+
+        spanStatus.textContent = mensagemStatus;
+    }
+</script>
+
+</body>
+</html>
